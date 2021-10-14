@@ -1,17 +1,9 @@
 import axios from 'axios';
-import {useEffect, useState} from 'react';
-const PostForm = ({setAllPosts}) => {
-    const [post,setPost] = useState({
-        title:"",
-        content:"",
-    });
-/*    useEffect(()=>{
-        axios.get("http://localhost:8000/api/posts")
-            .then(res=> {
-                setAllPosts(res.data);
-            })
-            .catch(err=>console.log(err));
-    },[])*/
+import {useContext, useEffect, useState} from 'react';
+import {PostContext} from "../contexts/PostContext";
+const PostForm = ({Cookies}) => {
+
+    const {allPosts,setAllPosts,post,setPost} = useContext(PostContext);
     const handleChange = (e) => {
         setPost({
             ...post,
@@ -20,26 +12,33 @@ const PostForm = ({setAllPosts}) => {
     }
     const submitHandler = (e) => {
         e.preventDefault();
-        const data = {
-            title:e.target.title.value,
-            content:e.target.content.value
-        }
 
-        axios.post("http://localhost:8000/api/posts",data,{withCredentials: true})
+        axios.post("http://localhost:8000/api/posts",post,{withCredentials: true})
             .then(res=> {
-
+                return res.data
+            })
+            .then(data=> {
+                setAllPosts([...allPosts,data]);
+                console.log()
             })
             .catch(err=>console.log(err));
 
         setPost({
             title:"",
             content:"",
+            comments:[],
+            creator:{
+                firstName:JSON.parse(Cookies.get("user")).firstName,
+                lastName:JSON.parse(Cookies.get("user")).lastName,
+             }
         });
+
+
     }
     return (
         <div className={"scheduler-border"}>
 
-            <form onSubmit={submitHandler} method="post">
+            <form onSubmit={submitHandler} method="POST">
                 <fieldset>
                     <legend>Share Your Thinking</legend>
                 <p>
@@ -53,7 +52,7 @@ const PostForm = ({setAllPosts}) => {
                               cols="40" placeholder={"Your Opinion...."}></textarea>
                 </p>
                 <button className={"btn btn-outline-secondary "}>Add Post</button>
-            </fieldset>
+              </fieldset>
             </form>
         </div>
     );

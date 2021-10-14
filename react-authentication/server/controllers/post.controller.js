@@ -10,7 +10,7 @@ const PostDict ={
         }
         Post.create(data)
             .then(post=>{
-                console.log("reaches Here Post Router Create function")
+                res.status(200).json(post)
             })
             .catch(err=>res.status(400).json({message:err.message}))
     },

@@ -1,13 +1,17 @@
-import PostForm from "./PostForm";
-import PostList from "./PostList";
+import React from "react";
 import axios from "axios";
 import {navigate} from "@reach/router";
+import {useContext} from 'react'
+
+
+import PostForm from "./PostForm";
+import PostList from "./PostList";
 import {
     BrowserRouter as Router,
     Redirect
 } from "react-router-dom";
 
-const Dashboard = ({Cookies, setAllPosts}) => {
+const Dashboard = ({Cookies}) => {
 
     const handleClick = e => {
         e.preventDefault();
@@ -34,8 +38,8 @@ const Dashboard = ({Cookies, setAllPosts}) => {
                         <button onClick={handleClick} className={"btn btn-outline-danger"}>Logout</button>
                         <br/>
                         <br/>
-                        <PostForm setAllPosts={setAllPosts}></PostForm>
-                        <PostList/>
+                        <PostForm Cookies={Cookies} ></PostForm>
+                        <PostList />
                     </> : <Router>
                         <Redirect to="/"/>
                     </Router>
