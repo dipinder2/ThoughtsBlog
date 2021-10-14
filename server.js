@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 
 require('dotenv').config();
 
-require("./config/mongoose.config");
+require("./server/config/mongoose.config");
 app.use(cookieParser());
 
 app.use(express.json(), express.urlencoded({ extended: true }));
@@ -17,8 +17,8 @@ app.use(express.json(), express.urlencoded({ extended: true }));
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 
 
-const AllMyUserRoutes = require("./routes/user.routes");
-const AllMyPostRoutes = require("./routes/post.routes");
+const AllMyUserRoutes = require("./server/routes/user.routes");
+const AllMyPostRoutes = require("./server/routes/post.routes");
 AllMyUserRoutes(app);
 AllMyPostRoutes(app);
 
