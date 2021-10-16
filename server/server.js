@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 
 require('dotenv').config();
 
-require("./server/config/mongoose.config");
+require("./config/mongoose.config");
 app.use(cookieParser());
 
 app.use(express.json(), express.urlencoded({ extended: true }));
@@ -17,9 +17,9 @@ app.use(express.json(), express.urlencoded({ extended: true }));
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 
 
-const AllMyUserRoutes = require("./server/routes/user.routes");
-const AllMyPostRoutes = require("./server/routes/post.routes");
+const AllMyUserRoutes = require("./routes/user.routes");
+const AllMyPostRoutes = require("./routes/post.routes");
 AllMyUserRoutes(app);
 AllMyPostRoutes(app);
 
-app.listen(8000, () => console.log("The server is all fired up on port 8000"));
+app.listen(process.env.PORT, () => console.log("The server is all fired up on port 8000"));
