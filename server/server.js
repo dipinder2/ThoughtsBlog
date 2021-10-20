@@ -22,4 +22,4 @@ const AllMyPostRoutes = require("./routes/post.routes");
 AllMyUserRoutes(app);
 AllMyPostRoutes(app);
 
-app.listen(process.env.PORT, () => console.log("The server is all fired up on port 8000"));
+app.listen(process.env.PORT||8000, () => console.log("The server is all fired up on port 8000"));

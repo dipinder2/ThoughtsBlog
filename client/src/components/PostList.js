@@ -7,7 +7,9 @@ import {Link} from "@reach/router"
 const PostList = ({}) => {
     const {allPosts,Cookies} = useContext(PostContext)
     console.log(JSON.parse(Cookies.get("user")).firstName)
-
+    if(allPosts===null){
+        return;
+    }
     return (
         <div>
             <h1>All Posts Here:</h1>
@@ -22,8 +24,8 @@ const PostList = ({}) => {
                         }
                         <legend>{idx+1}. {post.title}</legend>
                         <p>{post.content}</p>
-                        <h6>comments:</h6>
-                        <CommentForm post={post}/>
+                        <CommentList post={post}/>
+                        <CommentForm post={post} idx={idx}/>
                     </div>
                 })
                     :null

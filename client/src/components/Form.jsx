@@ -86,6 +86,7 @@ const Form = ({Cookies}) => {
 
     const handleSubmitLogin = (e) => {
         e.preventDefault();
+
         if (logincredentials.email.length < 3) {
             var email = true;
         }
@@ -151,11 +152,11 @@ const Form = ({Cookies}) => {
                         err ? <span style={{color: "red",display:"block"}}>Wrong Email or Password</span> : null
                     }
 
-                    <input placeholder="Email" onChange={handleChangeLogin} name="email" type="email"/>
+                    <input value={logincredentials.email} placeholder="Email" onChange={handleChangeLogin} name="email" type="email"/>
                     {loginValidState.email ?
                         <span style={{color: "red",display:"block"}}>it has to be more than 3 chars.</span> : null}
                     <br/>
-                    <input placeholder="Password" type="password" onChange={handleChangeLogin} name="password"/>
+                    <input value={logincredentials.password} placeholder="Password" type="password" onChange={handleChangeLogin} name="password"/>
                     {loginValidState.password ?
                     <span style={{color: "red",display:"block"}}>it has to be more than 8 chars.</span> : null}
                         <br/>

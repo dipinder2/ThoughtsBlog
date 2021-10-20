@@ -42,7 +42,6 @@ login: async(req, res) => {
         // password wasn't a match!
         return res.sendStatus(400);
     }
- 
     // if we made it this far, the password was correct
     const userToken = jwt.sign({
         id: user._id

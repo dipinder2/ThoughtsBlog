@@ -1,13 +1,24 @@
 import axios from "axios";
 import {useRef} from 'react';
-const CommentForm = ({post}) => {
+import {useState,useContext} from "react";
+import {PostContext} from "../contexts/PostContext";
+const CommentForm = ({post,idx}) => {
     const commentRef = useRef();
-    const commentHandler = (e) => {
+    const {setAllPosts,allPosts,clicked,setClicked} = useContext(PostContext);
+
+    async function commentHandler(e){
         e.preventDefault();
-        axios.post(`http://localhost:8000/api/posts/comments/${e.target.postId.value}`,{"comment":e.target.comment.value})
-            .then(res=>res)
-            .catch(err=>console.log(err))
-        commentRef.current.value = "";
+        try{
+            axios.post(`http://localhost:8000/api/posts/comments/${e.target.postId.value}`,{"comment":e.target.comment.value})
+            await setClicked(!clicked);
+        }
+        catch(e){
+            console.log(e)
+        }
+        finally{
+            commentRef.current.value = "";
+        }
+
     }
 
     return (  <form method={"post"} onSubmit={commentHandler}>

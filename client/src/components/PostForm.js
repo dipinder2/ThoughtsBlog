@@ -3,7 +3,7 @@ import {useContext, useEffect, useState} from 'react';
 import {PostContext} from "../contexts/PostContext";
 const PostForm = ({Cookies}) => {
 
-    const {allPosts,setAllPosts,post,setPost} = useContext(PostContext);
+    const {allPosts,setAllPosts,post,setPost,clicked,setClicked} = useContext(PostContext);
     const handleChange = (e) => {
         setPost({
             ...post,
@@ -19,6 +19,7 @@ const PostForm = ({Cookies}) => {
             })
             .then(data=> {
                 setAllPosts([...allPosts,data]);
+                setClicked(!clicked);
                 console.log()
             })
             .catch(err=>console.log(err));

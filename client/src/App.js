@@ -10,6 +10,7 @@ import Cookies from 'js-cookie'
 
 function App() {
   const [allPosts, setAllPosts] = useState([]);
+  const [clicked, setClicked] = useState(false);
   const [post,setPost] = useState({
     title:"",
     content:"",
@@ -23,15 +24,15 @@ function App() {
           setAllPosts(res.data);
         })
         .catch(err=>console.log(err));
-  },[])
+  },[clicked])
 
 
   return (
     <div className="App">
-    <PostContext.Provider value={{allPosts,setAllPosts,post,setPost, Cookies}}>
+    <PostContext.Provider value={{allPosts,setAllPosts,post,setPost, clicked,setClicked,Cookies}}>
       <Router>
-        <Form Cookies={Cookies} path="/"/>
-        <Dashboard Cookies={Cookies} setAllPosts={setAllPosts} allPosts={allPosts} path={"/success"}/>
+        <Form exact Cookies={Cookies} path="/"/>
+        <Dashboard exact Cookies={Cookies} setAllPosts={setAllPosts} allPosts={allPosts} path={"/success"}/>
       </Router>
     </PostContext.Provider>
     </div>
